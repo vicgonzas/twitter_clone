@@ -3,8 +3,9 @@ Rails.application.routes.draw do
  
  devise_for :users
 
+ resources :tweets
+
  resources :users do 
-    resources :tweets
  end 
 
   
