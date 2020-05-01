@@ -1,0 +1,46 @@
+
+<%= link_to_next_page @tweets, 'Mostrar mas tweets' %>
+<%= link_to 'New Tweet', new_tweet_path(@user) %>
+
+
+<div>
+  <% @tweets.reverse.each do |tweet| %>
+    <tr>
+      <br>
+      <td> <%= image_tag tweet.user.avatar ,size: '50' %></td>
+      <h1><td><%= tweet.user.username %></td></h1>
+      <h2><td><%= tweet.body %></td></h2>
+      <h3><td><%= link_to time_ago_in_words(tweet.created_at), tweet.user.avatar %></td></h3>
+      <h4><td>Likes:<%= tweet.likes.count %></td></h4>
+      <td><% if current_user != tweet.user %>
+            <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id} %>
+                  <% if pre_like %>
+                    <%= link_to tweet_unlike_path(tweet.id), method: :post do %>
+                      <%= image_tag("unlike.png", :alt => "Unlike", height: 18, width: 20) %>  
+                    <% end %>
+                  <% else %>
+                    <%= link_to tweet_like_path(tweet.id), method: :post do %>
+                    
+                      <%= image_tag("like.png", :alt => "Like", height: 18, width: 20) %>  
+                    <% end %>
+            <% end %>  
+          <% end %>
+      </td>
+
+    </tr>
+    <% if current_user == tweet.user %>
+      <%= link_to "Delete", tweet_path(tweet.id), :confirm => "Are you sure?", :method => :delete %>
+    <% end %>
+
+    <%= link_to "Retweet", retweet_tweet_path(tweet.id), method: :post %>
+    <br>
+    <span>------------------------------------------------------------------------------------------------</span>
+    
+  <% end %>
+  
+</div>
+
+<%= link_to_next_page @tweets, 'Mostrar mas tweets' %>
+<%= link_to 'New Tweet', new_tweet_path(@user) %>
+
+ 
