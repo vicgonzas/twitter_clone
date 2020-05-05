@@ -4,8 +4,12 @@ class TweetsController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        #@tweets = Tweet.all
-        @tweets = Tweet.page(params[:page])
+            
+        if params[:search]
+            @tweets = Tweet.page(params[:page]).search(params[:search])
+        else
+            @tweets = Tweet.all.page(params[:page])
+        end  
 
     end
     

@@ -14,4 +14,8 @@ class Tweet < ApplicationRecord
         #likes.where(user_id: user.id).first.destroy
         likes.find_by(user_id: user.id).destroy
     end
+
+    def self.search(search)
+        where("body LIKE ?", "%#{search}%")
+    end
 end

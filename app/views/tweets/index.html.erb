@@ -1,10 +1,13 @@
 
-<%= link_to_next_page @tweets, 'Mostrar mas tweets' %>
-<%= link_to 'New Tweet', new_tweet_path(@user) %>
+<div>
+<br>
 
+<%= link_to 'New Tweet', new_tweet_path(@user), :class => "btn btn-info" %>
+</div
 
 <div>
-  <% @tweets.reverse.each do |tweet| %>
+<span>------------------------------------------------------------------------------------------------</span>  
+<% @tweets.reverse.each do |tweet| %>
     <tr>
       <br>
       <td> <%= image_tag tweet.user.avatar ,size: '50' %></td>
@@ -40,7 +43,10 @@
   
 </div>
 
-<%= link_to_next_page @tweets, 'Mostrar mas tweets' %>
-<%= link_to 'New Tweet', new_tweet_path(@user) %>
 
+<div>
+<br>
+<%= link_to_next_page @tweets, 'Mostrar mas tweets' %>
+<%= link_to 'New Tweet', new_tweet_path(@user), :class => "btn btn-info" %>
+</div
  

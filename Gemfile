@@ -70,3 +70,6 @@ gem 'devise'
 
 #Pagination gem
 gem 'kaminari'
+
+#Web Administration gem
+gem "activeadmin"
