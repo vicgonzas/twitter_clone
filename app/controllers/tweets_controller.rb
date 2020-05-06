@@ -55,6 +55,11 @@ class TweetsController < ApplicationController
         @retweet.save
         redirect_to '/tweets#index'
     end
+
+    def show
+        tweet = Tweet.find(params[:id])
+        @ids = tweet.likes.ids
+    end
     
     
     private
