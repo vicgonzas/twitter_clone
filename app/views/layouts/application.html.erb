@@ -11,25 +11,25 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
 
-  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <a <%= link_to 'Tweet Clone', tweets_path, :class => 'navbar-brand' %></a>
+  <nav class="navbar navbar-light" style="background-color:#73a9c2">
+    <a <%= link_to 'Twitter Clone', tweets_path, :class => 'navbar-brand' %></a>
 
       <% if user_signed_in? %>
          Logged in as: <strong><%= current_user.email %></strong>
          <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+         
+         <%= form_tag(tweets_path, :method => "get", id: "search-form", :class => 'form-inline') do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Tweets", :class => 'form-control mr-sm-2' %>
+          <%= submit_tag "Search", :class => 'btn btn-outline-success my-2 my-sm-0' %>
+        <% end %>
       <% else %>
          <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
          <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
       <% end %>
-    
-      <%= form_tag(tweets_path, :method => "get", id: "search-form", :class => 'form-inline') do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search Tweets", :class => 'form-control mr-sm-2' %>
-        <%= submit_tag "Search", :class => 'btn btn-outline-success my-2 my-sm-0' %>
-      <% end %>
-</nav>
+  </nav>
 
-  <body>
+  <body class="col-12" style="background-color:#dcdcdc">
     <%= yield %>
   </body>
   
