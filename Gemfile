@@ -73,3 +73,5 @@ gem 'kaminari'
 
 #Web Administration gem
 gem "activeadmin"
+
+gem 'dotenv-rails', groups: [ :development , :test ]
