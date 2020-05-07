@@ -6,7 +6,7 @@
 </div>
 
   <div>
-        <% @tweets.reverse.each do |tweet| %>
+        <% @tweets.each do |tweet| %>
           <tr>
             <br>
             <td> <%= image_tag tweet.user.avatar ,size: '50' %></td>

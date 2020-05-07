@@ -5,4 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+#AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+
+User.all.each do |user|
+    puts "Creando tweets"
+    20.times do |i|
+      Tweet.create(body: "Lorem ipsum dolor sit amet consectetur adipiscing, elit pretium habitant sed nisl dictum, etiam sociosqu ullamcorper nascetur pharetra.#{i}", user: user)
+    end
+  end 
+puts "listo! "

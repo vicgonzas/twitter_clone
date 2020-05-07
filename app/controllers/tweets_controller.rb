@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+    
+
 
     # before any blog action happens, it will authenticate the user
     before_action :authenticate_user!
@@ -6,9 +8,9 @@ class TweetsController < ApplicationController
     def index
             
         if params[:search]
-            @tweets = Tweet.page(params[:page]).search(params[:search])
+            @tweets = Tweet.page(params[:page]).order('created_at DESC').search(params[:search])
         else
-            @tweets = Tweet.all.page(params[:page])
+            @tweets = Tweet.page(params[:page]).order('created_at DESC')
         end  
 
     end
@@ -53,7 +55,7 @@ class TweetsController < ApplicationController
         oldtweet = Tweet.find(params[:id])
         @retweet = Tweet.new(body:oldtweet.body, retweet_id:oldtweet.id, user: current_user)
         @retweet.save
-        redirect_to '/tweets#index'
+        redirect_to '/tweets#index', :notice => "Your tweet has been retweet"
     end
 
     def show
