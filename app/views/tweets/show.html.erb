@@ -1,0 +1,10 @@
+<div>
+    <% @ids.each do |x| %>
+        <br>
+        <tr>
+            <td><%= image_tag Like.find(x).user.avatar ,size: '60' %></td>
+            <td><h3><%= Like.find(x).user.username %></h3></td>
+            <br>
+        </tr>
+    <%end%>
+</div>
