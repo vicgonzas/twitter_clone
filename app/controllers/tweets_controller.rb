@@ -1,21 +1,21 @@
 class TweetsController < ApplicationController
-    
-
-
     # before any blog action happens, it will authenticate the user
     before_action :authenticate_user!
 
     def index
-            
-        if params[:search]
-            @tweets = Tweet.page(params[:page]).order('created_at DESC').search(params[:search])
-        else
-            @tweets = Tweet.page(params[:page]).order('created_at DESC')
-        end  
+        t_friends = current_user.friends.pluck(:friend_id)
+        _tweets = params[:search] ? Tweet.all.tweets_for_me(t_friends).order(id: :desc).search(params[:search]) : Tweet.all.tweets_for_me(t_friends).order(id: :desc)
 
+        tweets_array = _tweets.map do |tweet|
+            body_array = tweet.body.split(' ')
+            tweet.body = body_array.map { |word| word.include?('#') ? "<a href='#{ tweets_url }?utf8=✓&search=%23#{ word.split('#').last }&commit=Search'>#{word}</a>" : word }.join(' ')
+
+            tweet
+        end
+
+        @tweets = Kaminari.paginate_array(tweets_array).page(params[:page])
     end
-    
-       
+
     def new
         @tweet = Tweet.new
     end
@@ -23,13 +23,12 @@ class TweetsController < ApplicationController
     def create
        @tweet = Tweet.new(tweet_params)
        @tweet.user_id = current_user.id
-      
+
         if @tweet.save
             redirect_to '/tweets#index'
         else
-            render 'new'
+            render :new
         end
-
     end   
 
     def like

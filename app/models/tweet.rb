@@ -4,6 +4,8 @@ class Tweet < ApplicationRecord
     has_many :likes 
     has_many :retweets, class_name: "Tweet", foreign_key: "retweet_id"
 
+    scope :tweets_for_me, ->(t_friends) { where(user_id: t_friends) }
+
     # like the tweet
     def like(user)
         likes << Like.new(user: user)

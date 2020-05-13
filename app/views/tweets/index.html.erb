@@ -11,7 +11,7 @@
             <br>
             <td> <%= image_tag tweet.user.avatar ,size: '50' %></td>
             <h1><td><%= tweet.user.username %></td></h1>
-            <h2><td><%= tweet.body %></td></h2>
+            <h2><td><%= tweet.body.html_safe %></td></h2>
             <h4><td><%= link_to time_ago_in_words(tweet.created_at), tweet_path(tweet.id) %></td></h4>
             <h4><td>Likes:<%= tweet.likes.count %></td></h4>
             <td><% if current_user != tweet.user %>
@@ -39,10 +39,8 @@
         
   </div>
 
-
 <div>
 <br>
 <%= link_to_next_page @tweets, 'Mostrar mas tweets' %>
 <%= link_to 'New Tweet', new_tweet_path(@user), :class => "btn btn-info" %>
 </div>
- 
